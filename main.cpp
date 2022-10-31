@@ -1,41 +1,69 @@
 #include <stdio.h>
-#include <list>
-#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct cell {
+	char name[8];
+	char kashidasi[8];
+	char henkyaku[8];
+	struct cell* next;
+}CELL;
+
+void create(CELL* endCell, const char* name, const char* kanshidasi, const char* henakyaku);
+void index(CELL *firstCell);
 
 int main() {
-	std::list<const char*> Yamanote={ "Tokyo","Kanda","Akihabara","Okachimachi","Ueno",
-									  "Uguisudani","Nippori","Tabata","Komagome",
-							          "Sugamo","Otsuka","Ikebukuro","Mejiro" ,"Takadanobaba",
-							          "Shin-Okubo","Shinjuku","Yoyogi","Harajuku","Shibuya",
-							          "Ebisu","Meguro","Gotanda","Osaki","Shinagawa",
-									  "Tamachi","Hamamatsucho","Shimbashi","Yurakucho"};
-	// 出力
-	for (std::list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		std::cout << *itr << std::endl;
-	}
-	//西日暮里を挿入
-	for (std::list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		if (*itr == "Tabata") {
-			itr = Yamanote.insert(itr, "Nishi-Nippori");
-			++itr;
-		}
-	}
-	// 出力
-	for (std::list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		std::cout << *itr << std::endl;
+
+	char name[8];
+	char kashidasi[8];
+	char henkyaku[8];
+
+	// 先頭セルを宣言
+	CELL head;
+	head.next = nullptr;
+
+
+	while (true) {
+
+		scanf_s("%s", name, 8);
+		scanf_s("%s", kashidasi, 8);
+		scanf_s("%s", henkyaku, 8);
+
+		// 最後尾にセルを追加
+		create(&head, name, kashidasi, henkyaku);
+
+		// リスト一覧の表示
+		index(&head);
 	}
 
-	// 高輪ゲートウェイを挿入
-	for (std::list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		if (*itr == "Tamachi") {
-			itr = Yamanote.insert(itr, "Takanawa Gateway");
-			++itr;
-		}
-	}
-	// 出力
-	for (std::list<const char*>::iterator itr = Yamanote.begin(); itr != Yamanote.end(); ++itr) {
-		std::cout << *itr << std::endl;
-	}
 	return 0;
 
+}
+
+void create(CELL *endCell, const char* name, const char* kanshidasi, const char* henakyaku)
+{
+	CELL* newCell;
+	newCell = (CELL*)malloc(sizeof(CELL));
+
+	strcpy_s(newCell->name, 8, name);
+	strcpy_s(newCell->kashidasi, 8, kanshidasi);
+	strcpy_s(newCell->henkyaku, 8, henakyaku);
+
+	// 新規作成するセルのポインター＞値＝値
+	newCell->next = nullptr;
+
+	while (endCell->next != nullptr) {
+		endCell = endCell->next;
+	}
+
+	endCell = newCell;
+}
+
+void index(CELL* firstCell)
+{
+	while (firstCell->next != nullptr) {
+		firstCell = firstCell->next;
+		printf("%s\n%s\n%s\n", firstCell->name, firstCell->kashidasi, firstCell->henkyaku);
+	}
+	
 }
