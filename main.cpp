@@ -4,33 +4,39 @@
 
 typedef struct cell {
 	char name[8];
-	char kashidasi[8];
-	char henkyaku[8];
+	struct cell* prev;
 	struct cell* next;
+	
 }CELL;
 
-void create(CELL* endCell, const char* name, const char* kanshidasi, const char* henakyaku);
-void index(CELL *firstCell);
+void create(CELL* currentCell, const char* name);
+void index(CELL *endCell);
+CELL* getInsertAddress(CELL* endCELL, int iterator);
 
 int main() {
 
 	char name[8];
-	char kashidasi[8];
-	char henkyaku[8];
 
 	// 先頭セルを宣言
 	CELL head;
 	head.next = nullptr;
+	head.prev = nullptr;
 
+	int iterator;
+	int inputValue;
+	CELL *insertCell;
 
 	while (true) {
 
-		scanf_s("%s", name, 8);
-		scanf_s("%s", kashidasi, 8);
-		scanf_s("%s", henkyaku, 8);
+		printf("何番目のセルの後ろに挿入しますか？\n");
+		scanf_s("%d", &iterator);
 
-		// 最後尾にセルを追加
-		create(&head, name, kashidasi, henkyaku);
+		printf("挿入する値を入力してください？\n");
+		scanf_s("%s", &name, 8);
+
+		// 任意のセルを後ろに追加
+		insertCell = getInsertAddress(&head, iterator);
+		create(insertCell, name);
 
 		// リスト一覧の表示
 		index(&head);
@@ -40,30 +46,45 @@ int main() {
 
 }
 
-void create(CELL *endCell, const char* name, const char* kanshidasi, const char* henakyaku)
+void create(CELL *currentCell, const char* name)
 {
 	CELL* newCell;
 	newCell = (CELL*)malloc(sizeof(CELL));
 
 	strcpy_s(newCell->name, 8, name);
-	strcpy_s(newCell->kashidasi, 8, kanshidasi);
-	strcpy_s(newCell->henkyaku, 8, henakyaku);
+	newCell->prev = currentCell;
+	newCell->next = currentCell->next;
 
-	// 新規作成するセルのポインター＞値＝値
-	newCell->next = nullptr;
-
-	while (endCell->next != nullptr) {
-		endCell = endCell->next;
+	if (currentCell->next) {
+		CELL* nextCell = currentCell->next;
+		nextCell->prev = newCell;
 	}
 
-	endCell = newCell;
+	currentCell->next = newCell;
 }
 
-void index(CELL* firstCell)
+void index(CELL* endCell)
 {
-	while (firstCell->next != nullptr) {
-		firstCell = firstCell->next;
-		printf("%s\n%s\n%s\n", firstCell->name, firstCell->kashidasi, firstCell->henkyaku);
+	int no = 1;
+	while (endCell->next != nullptr) {
+		endCell = endCell->next;
+		printf("%d", no);
+		printf("%p", endCell->prev);
+		printf("%s", endCell->name);
+		printf("(%p)", endCell);
+		printf("%p\n", endCell->next);
+		no++;
 	}
-	
+}
+
+CELL* getInsertAddress(CELL *endCELL,int iterator)
+{
+	for (int i = 0; i < iterator; i++) {
+		if (endCELL->next) {
+			endCELL = endCELL->next;
+		}else {
+			break;
+		}
+	}
+	return endCELL;
 }
