@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <list>
 
 typedef struct cell {
-	char name[8];
+	char name[15];
 	struct cell* prev;
 	struct cell* next;
 	
@@ -15,7 +16,17 @@ CELL* getInsertAddress(CELL* endCELL, int iterator);
 
 int main() {
 
-	char name[8];
+	char name[15];
+
+	const char* Yamanote[] = { "‘ε‹{","‚³‚Ά‚½‚άV“sS","—^–μ","–k‰Ya","‰Ya",
+							   "“μ‰Ya","n","Όμϋ","μϋ","Τ‰H",
+							   "“\π","‰¤q","γ’†—Ά","“c’[","Ό“ϊ•ι—Ά",
+							   "“ϊ•ι—Ά","ις’J","γ–μ","δ“k’¬","H—t΄",
+							   "_“c","“‹","—Ly’¬","V‹΄","•lΌ’¬",
+							   "“c’¬","•iμ","‘εδ’¬","‘εX","—“c",
+							   "μθ","’ί©","Vqΐ","“_“ήμ","‰΅•l",
+							   "χ–Ψ’¬","Φ“ΰ","Ξμ’¬","Rθ","ªέ",
+							   "ιq","V™“c","—mυ‘δ","`“μ‘δ","–{‹½‘δ","‘ε‘D" };
 
 	// ζ“ªƒZƒ‹‚πιΎ
 	CELL head;
@@ -32,7 +43,7 @@ int main() {
 		scanf_s("%d", &iterator);
 
 		printf("‘}“ό‚·‚ι’l‚π“ό—Ν‚µ‚Δ‚­‚Ύ‚³‚ΆH\n");
-		scanf_s("%s", &name, 8);
+		scanf_s("%s", &name, 15);
 
 		// ”CΣ‚ΜƒZƒ‹‚πγ‚λ‚Ι’Η‰Α
 		insertCell = getInsertAddress(&head, iterator);
