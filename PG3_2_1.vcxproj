@@ -142,10 +142,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PersonInCharge.cpp" />
     <ClCompile Include="Task.cpp" />
+    <ClCompile Include="TaskManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PersonInCharge.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Task.h" />
+    <ClInclude Include="TaskManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

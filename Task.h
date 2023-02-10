@@ -22,6 +22,9 @@ public:// サブ
 	};
 
 public:// メンバ関数
+	// 情報の譲渡
+	int GetTaskID() { return taskID; }
+
 	// 表示
 
 	// タスクIDの表示
@@ -29,6 +32,9 @@ public:// メンバ関数
 
 	// タスクの担当者たちを表示
 	void DrawAllPics();
+
+	// タスク単体の担当者の表示
+	void DrawPic();
 
 	// タスクの題名を表示
 	void DrawTaskTitle();
@@ -67,6 +73,9 @@ private:// メンバ変数
 	// 担当者のリスト（選択可能）
 	int picID = 0;
 	static std::list<PersonInCharge*> pics;
+
+	// セットした担当者
+	PersonInCharge pic;
 
 	// 題名
 	char taskTitle[20];

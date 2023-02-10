@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 /// <summary>
 /// 担当者の情報
 /// </summary>
@@ -13,7 +14,18 @@ public:
 		LE2A,
 		LE2B,
 	};
-	// 
+
+	// 表示
+	int GetPicID() { return this->picID; }
+	// picIDの表示
+	void DrawPicID();
+	// 名前の表示
+	void DrawContent();
+	// クラスの表示
+	void DrawClss();
+
+	// 担当者の情報の全体を表示
+	void DrawPicAllInfo();
 
 	// セッター
 	void SetPicID(int picID) { this->picID = picID; }
